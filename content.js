@@ -1,11 +1,15 @@
-// import { CONVERSIONS } from "unit-modules/index.mjs";
-// import { local_settings } from "settings.js";
+function convertToBinary(match) {
+    match.replaceAll(",", "");
+    match = Number(match).toString(2);
+    console.log(match)
+    return match
+}
 
-const regex = /\b([0-9,]+(\.[0-9]+)*)\b/g
+const regex = /\b[+-]?(\d+|\d{1,3}(,\d{3})*)(.\d+)?\b/g
 function handleText(textNode) {
     let text = textNode.nodeValue;
 
-    textNode.nodeValue = text.replaceAll(regex, "CHEESE");
+    textNode.nodeValue = text.replaceAll(regex, convertToBinary)
 }
 
 // walk(node) goes through running the conversion code on every text element
@@ -19,13 +23,12 @@ function walk(node) {
         case 9:  // Document
         case 11: // Document fragment
             child = node.firstChild;
-        while (child) {
-            next = child.nextSibling;
-            walk(child);
-            child = next;
-        }
-        break;
-
+            while (child) {
+                next = child.nextSibling;
+                walk(child);
+                child = next;
+            }
+            break;
         case 3: // Text node
             handleText(node);
             break;
