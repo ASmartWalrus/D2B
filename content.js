@@ -5,7 +5,7 @@ function convertToBinary(match) {
     return match
 }
 
-const regex = /\b[+-]?(\d+|\d{1,3}(,\d{3})*)(.\d+)?\b/g
+const regex = /\b[+-]?(?:\d+|\d{1,3}(?:,\d{3})*)(?:.\d+)?\b/g
 function handleText(textNode) {
     let text = textNode.nodeValue;
 
